@@ -30,7 +30,8 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          tag = '''<meta name="google-adsense-account" content="ca-pub-5940733608530998">\n<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5940733608530998" crossorigin="anonymous"></script>'''
+          tag = '''<meta name="google-adsense-account" content="ca-pub-5940733608530998">
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5940733608530998" crossorigin="anonymous"></script>'''
           for path in Path('_site').rglob('*.html'):
               text = path.read_text(encoding='utf-8')
               if 'ca-pub-5940733608530998' not in text:
@@ -53,3 +54,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+# Performance/accessibility optimization deployment trigger
