@@ -55,4 +55,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-# Performance/accessibility optimization deployment trigger
+# Content sync trigger: deploy latest project-repository changes immediately
