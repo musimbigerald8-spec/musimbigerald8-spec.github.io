@@ -19,13 +19,11 @@ jobs:
     steps:
       - name: Checkout deployment repository
         uses: actions/checkout@v4
-
       - name: Fetch latest Mbale Media Daily site
         run: |
           rm -rf _site
           git clone --depth 1 https://github.com/musimbigerald8-spec/Mbale-media-daily-.git _site
           rm -rf _site/.git _site/.github
-
       - name: Normalize public site URLs
         run: |
           python - <<'PY'
@@ -42,7 +40,6 @@ jobs:
               if old in text:
                   path.write_text(text.replace(old, new), encoding='utf-8')
           PY
-
       - name: Add Google AdSense verification code
         run: |
           python - <<'PY'
@@ -55,12 +52,10 @@ jobs:
                   text = text.replace('</head>', tag + '\n</head>', 1)
                   path.write_text(text, encoding='utf-8')
           PY
-
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
           path: _site
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -72,6 +67,5 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-# Redeploy trigger: pull the latest Mbale Media Daily main branch into the live GitHub Pages site.
-# SEO normalization verified; deployment also rewrites legacy project URLs to the root site.
-# Triggered by the latest September 15, 2026 homepage/network update.
+# Redeploy trigger: latest Mbale Media Daily homepage, About Us, CEO, advertising, support,
+# privacy, careers, and professional admin/editor-management update.
