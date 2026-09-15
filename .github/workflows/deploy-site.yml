@@ -27,6 +27,18 @@ jobs:
           fetch-depth: 1
       - name: Remove repository metadata
         run: rm -rf _site/.git _site/.github
+      - name: Add Business and Africa to homepage navigation
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('_site/index.html')
+          s = p.read_text(encoding='utf-8')
+          old = '<a href="#national">Uganda</a><a href="#sports">Sports</a>'
+          new = '<a href="#national">Uganda</a><a href="business.html">Business</a><a href="africa.html">Africa</a><a href="#sports">Sports</a>'
+          if old in s and 'href="business.html">Business</a>' not in s:
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
