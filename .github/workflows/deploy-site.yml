@@ -67,4 +67,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-# Redeploy trigger: September 16, 2026 — About/CEO hub, advertising, support, privacy, careers and Admin HQ/editor-management improvements.
+# Redeploy trigger: September 16, 2026 — Editor Access request and Admin approval pages included.
