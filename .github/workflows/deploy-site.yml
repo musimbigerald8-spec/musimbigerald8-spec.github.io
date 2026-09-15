@@ -48,4 +48,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      # Admin sign-in fix deployment trigger: September 16, 2026.
+      # Redeploy trigger for latest homepage date/navigation update: September 16, 2026.
