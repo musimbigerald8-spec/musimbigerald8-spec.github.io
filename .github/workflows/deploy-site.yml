@@ -2,8 +2,7 @@ name: Deploy Mbale Media Daily to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
   schedule:
     - cron: '17 * * * *'
@@ -14,57 +13,38 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout deployment repository
         uses: actions/checkout@v4
-      - name: Fetch latest Mbale Media Daily site
+
+      - name: Checkout latest Mbale Media Daily source
+        uses: actions/checkout@v4
+        with:
+          repository: musimbigerald8-spec/Mbale-media-daily-
+          ref: main
+          path: _site
+          fetch-depth: 1
+
+      - name: Remove repository metadata
         run: |
-          rm -rf _site
-          git clone --depth 1 https://github.com/musimbigerald8-spec/Mbale-media-daily-.git _site
           rm -rf _site/.git _site/.github
-      - name: Normalize public site URLs
+
+      - name: Normalize site URLs
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          old = 'https://musimbigerald8-spec.github.io/Mbale-media-daily-'
-          new = 'https://musimbigerald8-spec.github.io'
-          for path in Path('_site').rglob('*'):
-              if not path.is_file() or path.suffix.lower() not in {'.html', '.xml', '.txt', '.json'}:
-                  continue
-              try:
-                  text = path.read_text(encoding='utf-8')
-              except UnicodeDecodeError:
-                  continue
-              if old in text:
-                  path.write_text(text.replace(old, new), encoding='utf-8')
-          PY
-      - name: Add Google AdSense verification code
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          tag = '''<meta name="google-adsense-account" content="ca-pub-5940733608530998">
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5940733608530998" crossorigin="anonymous"></script>'''
-          for path in Path('_site').rglob('*.html'):
-              text = path.read_text(encoding='utf-8')
-              if 'ca-pub-5940733608530998' not in text:
-                  text = text.replace('</head>', tag + '\n</head>', 1)
-                  path.write_text(text, encoding='utf-8')
-          PY
-      - name: Upload site
-        uses: actions/upload-pages-artifact@v4
+          find _site -type f \( -name '*.html' -o -name '*.js' -o -name '*.css' \) -print0 | xargs -0 sed -i 's#Mbale-media-daily-/#Mbale-media-daily-/#g'
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 
-# Redeploy trigger: September 16, 2026 — Editor Access request and Admin approval pages included.
+      # Redeploy trigger: September 16, 2026 — ensure latest Admin Control Center is deployed.
