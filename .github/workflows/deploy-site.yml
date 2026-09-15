@@ -42,4 +42,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      # Redeploy trigger: September 16, 2026 — final Admin Control Center deployment.
+      # Final deployment trigger: September 16, 2026.
