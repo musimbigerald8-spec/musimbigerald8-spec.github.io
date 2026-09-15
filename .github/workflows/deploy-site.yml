@@ -36,4 +36,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      # Final deployment trigger: September 16, 2026.
+      # Final deployment trigger: September 16, 2026 — route all legacy Admin entry points to the current Control Center.
