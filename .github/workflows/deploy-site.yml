@@ -28,12 +28,7 @@ jobs:
           fetch-depth: 1
 
       - name: Remove repository metadata
-        run: |
-          rm -rf _site/.git _site/.github
-
-      - name: Normalize site URLs
-        run: |
-          find _site -type f \( -name '*.html' -o -name '*.js' -o -name '*.css' \) -print0 | xargs -0 sed -i 's#Mbale-media-daily-/#Mbale-media-daily-/#g'
+        run: rm -rf _site/.git _site/.github
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
