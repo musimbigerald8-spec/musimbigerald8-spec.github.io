@@ -72,5 +72,6 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+# Redeploy trigger: pull the latest Mbale Media Daily main branch into the live GitHub Pages site.
 # SEO normalization verified; deployment also rewrites legacy project URLs to the root site.
-# Triggered by the latest September 12, 2026 sports results update with five venue images.
+# Triggered by the latest September 15, 2026 homepage/network update.
