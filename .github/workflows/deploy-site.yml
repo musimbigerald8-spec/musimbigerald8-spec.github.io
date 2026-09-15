@@ -67,4 +67,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-# Manual redeploy trigger for September 16, 2026 newsroom pages and admin control center.
+# Redeploy trigger: September 16, 2026 — About/CEO hub, advertising, support, privacy, careers and Admin HQ/editor-management improvements.
