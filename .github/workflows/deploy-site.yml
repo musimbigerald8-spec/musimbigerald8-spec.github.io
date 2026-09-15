@@ -67,5 +67,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-# Redeploy trigger: latest Mbale Media Daily homepage, About Us, CEO, advertising, support,
-# privacy, careers, and professional admin/editor-management update.
+# Manual redeploy trigger for September 16, 2026 newsroom pages and admin control center.
